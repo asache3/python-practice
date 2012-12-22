@@ -14,6 +14,9 @@ print a
 del a[4]
 print a
 
+# 要素の存在チェック
+print 7 in a
+
 # リストの最大値、最小値
 price = [300, 120, 500, 1000, 750]
 print max(price)
