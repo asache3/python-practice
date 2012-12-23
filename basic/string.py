@@ -29,6 +29,12 @@ print s.find("jp")
 # 文字列の置換
 print s.replace("mn", "mmnn")
 
+# 検索したい文字列で始まっているか調べる
+print s.startswith("ha")
+
+# 検索したい文字列で終わっているか調べる
+print s.endswith("mn")
+
 # 文字列から数値への変換
 print 3 + int("10")
 print 5 + float("2.0")
@@ -36,3 +42,12 @@ print 5 + float("2.0")
 # 数値から文字列への変換
 age = 30
 print "I am " + str(age) + " years old."
+
+# 小文字を大文字に変換する
+print "abcde".upper()
+
+# 大文字を小文字に変換する
+print "ABCDE".lower()
+
+
+

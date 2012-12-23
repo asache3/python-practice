@@ -12,7 +12,20 @@ print a
 
 # 要素の削除
 del a[4]
+a.remove(1)
 print a
+
+# 末尾に要素を追加する
+a.append(11)
+print a
+
+# リストに要素を追加する
+a.insert(1, 13)
+print a
+
+# 要素を1つだけ取り除く
+print a.pop()
+print a.pop(0)
 
 # 要素の存在チェック
 print 7 in a

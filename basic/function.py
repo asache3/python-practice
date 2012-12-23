@@ -7,6 +7,18 @@ def hello(name, num = 3):
 print hello("Tom", 2)
 print hello("Bob")
 
+# 関数で引数リストを受け取る
+def foo(a, b, *vals):
+    print a, b, vals
+
+foo(1, 2, 3, 4, 5)
+
+# 関数でキーワード引数を受け取る
+def bar(a, b, **args):
+    print a, b, args
+
+bar (1, 2, c=3, d=4)
+
 # 空の関数を定義する
 def vacant():
     pass
