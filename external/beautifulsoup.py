@@ -1,11 +1,11 @@
 # coding: UTf-8
 
-import urllib
+import urllib2
 from bs4 import BeautifulSoup
 
 url = "http://www.google.co.jp"
 
-html = urllib.urlopen(url).read()
+html = urllib2.urlopen(url).read()
 soup = BeautifulSoup(html)
 
 # ソースを成型して表示
