@@ -7,6 +7,11 @@ f.close()
 
 # ファイルから1行ずつ読み込む
 f = open("foo.txt", "r")
+for line in f.readlines():
+    print line
+f.close()
+
+f = open("foo.txt", "r")
 for line in f:
     print line
 f.close()
