@@ -45,3 +45,27 @@ dbh.users.find({"firstname":"jane"}, {"email":1})
 # 条件に合うものの件数を取得する
 userscount = dbh.users.find().count()
 print "There are %d documents in users collection" % userscount
+
+# 検索した結果をソートする
+dbh.users.find({"firstname":"jane"}).sort(("dateofbirth", pymongo.DESCENDING))
+users = dbh.users.find({"firstname":"jane"}, sort[("dateofbirth", pymongo.DESCENDING)])
+
+# 検索した結果から指定した件数を取得する
+dbh.users.find().sort(("score", pymongo.DESCENDING)).limit(10)
+dbh.users.find().sort(("surname", pymongo.ASCENDING)).limit(20).skip(20)
+
+# Snapshotモードを使う
+for user in dbh.users.find(snapshot=True):
+    print user.get("username"), user.get("score", 0)
+
+# ドキュメントをupdateする
+dbh.users.update({"firstname":"jane"}, {"$set":{"email":"janedoe74@example2.com", "score":1}}, safe=True)
+
+# 条件に合致したすべてのドキュメントをupdateする
+dbh.users.update({"score":0}, {"$set":{"flagged":True}}, multi=True, safe=True)
+
+# ドキュメントを削除する
+dbh.users.remove({"score":1}, safe=True)
+
+# コレクションの中のすべてのドキュメントを削除する
+dbh.users.remove(None, safe=True)
