@@ -69,3 +69,52 @@ dbh.users.remove({"score":1}, safe=True)
 
 # コレクションの中のすべてのドキュメントを削除する
 dbh.users.remove(None, safe=True)
+
+# Embedされたサブドキュメントを取得する
+user_doc = {
+            "username":"foouser",
+            "twitter":{
+                       "username":"footwitter",
+                       "password":"secret",
+                       "email":"twitter@example.com"
+                       },
+            "facebook":{
+                        "username":"foofacebook",
+                        "password":"secret",
+                        "email":"facebook@example.com"
+                        },
+            "irc":{
+                   "username":"fooirc",
+                   "password":"secret",
+                   }
+            }
+
+dbh.users.find_one({facebook.username:"foofacebook"})
+
+# サブドキュメントのリストから値を削除する
+dbh.users.update({"username":"foouser"}, {"$pull":{"emails":{"email":"foouser2@example2.com"}}}, safe=True)
+dbh.users.update({"username":"foouser"}, {"$pull":{"emails":{"primary":{"$ne":True}}}}, safe=True)
+
+# ドキュメントのリストに値を追加する
+dbh.users.update({"username":"foouser"}, {"$push":{"email":new_email}}, safe=True)
+
+# positional operator
+dbh.users.update({"emails.email":"foouser2@example2.com"}, {"$set":{"emails.$.primary":True}}, safe=True)
+dbh.users.update({"emails.email":"foouser1@example1.com"}, {"$set":{"emails.$.primary":False}}, safe=True)
+
+# indexを作成する
+dbh.users.create_index("username")
+dbh.users.create_index([("first_name", pymongo.ASCENDING), ("last_name", pymongo.ASCENDING)], name="name_idx")
+
+# backgroundでindexを作成する
+dbh.users.create_index("username", background=True)
+
+# uniqueなindexを作成する
+dbh.users.create_index("username", unique=True)
+# uniqueなindexで重複したときに値を破棄する
+dbh.users.create_index("username", unique=True, drop_dups=True)
+dbh.users.create_index("username", unique=True, dropDups=True)
+
+# indexを削除する
+dbh.users.drop_index("username_idx")
+dbh.users.drop_index([("first_name", pymongo.ASCENDING), ("last_name", pymongo.ASCENDING)])
